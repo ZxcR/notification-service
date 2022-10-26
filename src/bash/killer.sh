@@ -1,1 +1,1 @@
-supervisorctl stop consumer-worker:*
+supervisorctl stop mail-send-consumer:*

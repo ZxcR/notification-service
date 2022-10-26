@@ -6,7 +6,6 @@ ini_set('memory_limit', '-1');
 require_once '../index.php';
 require_once '../config/db.php';
 
-use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 
 $sql = "SELECT * FROM users";
@@ -16,15 +15,6 @@ $stmt->execute();
 $result = $stmt->get_result();
 $users = $result->fetch_all(MYSQLI_ASSOC);
 
-
-
-
-$connection = new AMQPStreamConnection(
-    RABBIT_HOST,
-    RABBIT_PORT,
-    RABBIT_USER,
-    RABBIT_PASS
-);
 
 $channel = $connection->channel();
 $queue = "emails";

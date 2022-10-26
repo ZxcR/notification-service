@@ -1,15 +1,6 @@
 <?php
 require_once $_SERVER["DOCUMENT_ROOT"] . "./index.php";
 
-use PhpAmqpLib\Connection\AMQPStreamConnection;
-
-$connection = new AMQPStreamConnection(
-    RABBIT_HOST,
-    RABBIT_PORT,
-    RABBIT_USER,
-    RABBIT_PASS
-);
-
 $channel = $connection->channel();
 $channel->queue_declare('manager', false, false, false, false);
 

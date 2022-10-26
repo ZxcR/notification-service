@@ -23,9 +23,7 @@ RUN apt-get update && apt-get install -y \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 COPY /docker/php/manager-worker.conf    /etc/supervisor/conf.d/manager-worker.conf
-COPY /docker/php/consumer-worker.conf    /etc/supervisor/conf.d/consumer-worker.conf
-COPY /docker/php/prepare.sh /usr/local/bin/prepare.sh
+COPY /docker/php/mail-send-consumer.conf    /etc/supervisor/conf.d/mail-send-consumer.conf
+COPY /docker/php/mail-check-consumer.conf    /etc/supervisor/conf.d/mail-check-consumer.conf
 
-RUN chmod a+x /usr/local/bin/prepare.sh
-
-CMD composer install && supervisord -c /etc/supervisor/supervisord.conf && supervisorctl reread && supervisorctl update && php-fpm
+CMD composer install && supervisord -c /etc/supervisor/supervisord.conf && supervisorctl reread && supervisorctl update && supervisorctl start manager-worker:* && php-fpm

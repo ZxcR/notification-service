@@ -1,2 +1,1 @@
-#!/bin/bash
-supervisorctl start consumer-worker:*
+supervisorctl start mail-send-consumer:*
