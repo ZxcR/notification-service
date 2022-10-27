@@ -21,8 +21,12 @@ echo " [*] Waiting for messages. To exit press CTRL+C\n";
 $reciveCallback = function ($msg) use($opt) {
     $file = "/var/www/html/log/" . $opt["name"] . ".log";
     file_put_contents($file, $opt["name"] . " " . now() . " " .$msg->body . "\n", FILE_APPEND);
-    send_mail();
-    $msg->ack();
+    try {
+        send_mail();
+        $msg->ack();
+    } catch (Exception $e) {
+        //log failed send_mail
+    }
     echo ' [x] Received '.$opt["name"], " ", $msg->body, "\n";
 
 };
