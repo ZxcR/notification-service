@@ -13,7 +13,7 @@ $sql = "CREATE TABLE `users` (
 	`checked_email` TINYINT(1) NOT NULL DEFAULT '0',
 	`valid_email` TINYINT(1) NOT NULL DEFAULT '0',
 	PRIMARY KEY (`id`) USING BTREE,
-	INDEX `Индекс 3` (`validts`, `confirmed`, `valid_email`) USING BTREE
+	INDEX `email_validts` (`email`,`validts`) USING BTREE
 )
 COLLATE='utf8mb4_unicode_ci'
 ENGINE=InnoDB";
