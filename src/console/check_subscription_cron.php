@@ -8,9 +8,11 @@ require_once '../config/db.php';
 
 use PhpAmqpLib\Message\AMQPMessage;
 
-$sql = "SELECT * FROM users";
+$date = new Date("Y-m-d H:i:s", strtotime(' + 3 days'));
+
+$sql = "SELECT id, emails FROM users Where validts < ? AND confirmed = 1 AND valid = 1";
 $stmt = $connect->prepare($sql);
-//$stmt->bind_param("i", $id);
+$stmt->bind_param("s", $date);
 $stmt->execute();
 $result = $stmt->get_result();
 $users = $result->fetch_all(MYSQLI_ASSOC);
